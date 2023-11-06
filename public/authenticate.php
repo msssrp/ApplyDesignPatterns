@@ -1,6 +1,6 @@
 <?php
 
-require_once 'LocalAuthStrategy.php';
+require_once '../src/Authentication/LocalAuthStrategy.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
@@ -11,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'password' => $password,
     ];
 
-    $authStrategy = new LocalAuthStrategy();
+    $dbName = 'authentication';
+
+    $authStrategy = new LocalAuthStrategy($dbName);
 
     if ($authStrategy->authenticate($credentials)) {
         session_start();
